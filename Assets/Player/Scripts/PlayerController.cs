@@ -2,19 +2,26 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerControll : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
     Transform cameraTransform;
+    Quaternion targetRotation;
+
+    [SerializeField] private float moveSpeed = 3f;
+
     [SerializeField] GameObject proiectil;
+
+    private Rigidbody rb;
 
     // Use this for initialization
     void Start()
     {
         cameraTransform = GameObject.FindWithTag("MainCamera").transform;
+        rb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         float x = Input.GetAxis("Vertical");
         float z = Input.GetAxis("Horizontal");
@@ -28,9 +35,9 @@ public class PlayerControll : MonoBehaviour
             newInstance.transform.rotation = cameraTransform.rotation;
         }
 
-        transform.position += x * cameraTransform.right * Time.deltaTime
-            + z * cameraTransform.forward * Time.deltaTime;
+        Vector3 movement = new Vector3(x, 0.0f, z);
 
+        transform.Translate(movement);
 
     }
 }
