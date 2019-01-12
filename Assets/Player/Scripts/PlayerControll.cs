@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class PlayerControll : MonoBehaviour
 {
-    Transform cameraTransform;
-    [SerializeField] GameObject proiectil;
+    public Transform cameraTransform;
+    [SerializeField] Weapon weapon;
 
     // Use this for initialization
-    void Start()
+    void Awake()
     {
         cameraTransform = GameObject.FindWithTag("MainCamera").transform;
+        Debug.Log(weapon.CanFire);
     }
 
     // Update is called once per frame
@@ -21,16 +22,25 @@ public class PlayerControll : MonoBehaviour
 
         bool buttonPressed = Input.GetButton("Fire1");
 
-        if (buttonPressed)
+        if (weapon.Ammo <= 0)
         {
-            GameObject newInstance = GameObject.Instantiate(proiectil);
-            newInstance.transform.position = cameraTransform.position + cameraTransform.forward;
-            newInstance.transform.rotation = cameraTransform.rotation;
+            Debug.Log("Out of ammo");
+            weapon.HasAmmo = false;
         }
 
-        transform.position += x * cameraTransform.right * Time.deltaTime
-            + z * cameraTransform.forward * Time.deltaTime;
+        if (!weapon.HasAmmo)
+        {
+            Debug.Log("No ammo");
+            if(!weapon.Reloading)
+            {
+                StartCoroutine(weapon.Reload());
+            }
+        }
 
-
+        if (buttonPressed & weapon.CanFire & weapon.HasAmmo & !weapon.Reloading)
+        {
+            Debug.Log("Trying to fire");
+            StartCoroutine(weapon.Fire());
+        }
     }
 }
