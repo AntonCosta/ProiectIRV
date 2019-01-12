@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    Transform cameraTransform;
+    public Transform cameraTransform;
     [SerializeField] Weapon weapon;
     Quaternion targetRotation;
 
