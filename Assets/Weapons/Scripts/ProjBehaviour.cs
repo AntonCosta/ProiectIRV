@@ -13,7 +13,7 @@ public class ProjBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position += ;
+        transform.position += transform.forward;
     }
 
     private void OnBecameInvisible()
