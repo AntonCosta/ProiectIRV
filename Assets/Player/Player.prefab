@@ -50,8 +50,9 @@ MonoBehaviour:
   cameraTransform: {fileID: 5207589184589776830}
   weapon: {fileID: 11400000, guid: 468219233b7a28045a73870c14c4a567, type: 2}
   moveSpeed: 0.5
-  proiectil: {fileID: 9208253780832723603, guid: 41003575d326cb747b7102d8d2ab937b,
-    type: 3}
+  direction: 0
+  waitTime: 1
+  rotate: 0
 --- !u!54 &1041736143
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -280,10 +281,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5207589184589776830}
     m_Modifications:
-    - target: {fileID: 171526, guid: 60270cf52a5e94998a5a335989159738, type: 3}
-      propertyPath: m_Name
-      value: GvrReticlePointer
-      objectReference: {fileID: 0}
     - target: {fileID: 482300, guid: 60270cf52a5e94998a5a335989159738, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -327,6 +324,10 @@ PrefabInstance:
     - target: {fileID: 482300, guid: 60270cf52a5e94998a5a335989159738, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 171526, guid: 60270cf52a5e94998a5a335989159738, type: 3}
+      propertyPath: m_Name
+      value: GvrReticlePointer
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 60270cf52a5e94998a5a335989159738, type: 3}

@@ -5,15 +5,11 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public Transform cameraTransform;
-    [SerializeField] Weapon weapon;
-    Quaternion targetRotation;
-
+    [SerializeField] private float health = 100f;
+    [SerializeField] private Weapon weapon;
     [SerializeField] private float moveSpeed = 0.1f; //might be too fast
-
-    [SerializeField] GameObject proiectil;
-
+    private Quaternion targetRotation;
     private Vector3 baseMovement = new Vector3(0.0f, 0.0f, 0.5f);
-
     public int direction = 0;
 
     private bool wait = false;
@@ -31,7 +27,7 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-       
+
     }
 
     // Update is called once per frame
@@ -42,22 +38,20 @@ public class PlayerController : MonoBehaviour
 
         bool buttonPressed = Input.GetButton("Fire1");
 
-        
-
         if (weapon.Ammo <= 0)
         {
             weapon.HasAmmo = false;
         }
 
-        if(!weapon.HasAmmo)
+        if (!weapon.HasAmmo)
         {
-            if(!weapon.Reloading)
+            if (!weapon.Reloading)
             {
                 StartCoroutine(weapon.Reload());
             }
         }
 
-        if(buttonPressed & weapon.CanFire & weapon.HasAmmo & !weapon.Reloading)
+        if (buttonPressed & weapon.CanFire & weapon.HasAmmo & !weapon.Reloading)
         {
             StartCoroutine(weapon.Fire());
         }
@@ -84,10 +78,24 @@ public class PlayerController : MonoBehaviour
     }
 
     public void TurnInDirection(int directionToTurn)//Transform target)// 
-    {        
+    {
         Quaternion currentRotation = transform.rotation;
         Quaternion wantedRotation = currentRotation * Quaternion.AngleAxis(directionToTurn, Vector3.up);
         transform.rotation = Quaternion.Slerp(currentRotation, wantedRotation, Time.deltaTime * waitTime);
     }
 
+    public void ApplyDamage(float amount)
+    {
+        Debug.Log("Player taking damage: " + amount);
+        health -= amount;
+        if (health <= 0)
+        {
+            GameOver();
+        }
+    }
+
+    public void GameOver()
+    {
+        Debug.Log("You are dead");
+    }
 }
