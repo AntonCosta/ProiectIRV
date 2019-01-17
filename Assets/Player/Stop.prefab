@@ -44,4 +44,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stopRadius: 10
-  player: {fileID: 5207589184471700488, guid: f42063689325e124dbfd933392536007, type: 3}
+  directionToTurn: 0
+  waitTime: 0
