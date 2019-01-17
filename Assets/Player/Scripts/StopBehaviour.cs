@@ -44,6 +44,7 @@ public class StopBehaviour : MonoBehaviour
         player.GetComponent<PlayerController>().SetWaitTime(true);
         //player.GetComponent<PlayerController>().TurnInDirection(directionToTurn);
         yield return new WaitForSeconds(waitTime);
+        player.GetComponent<PlayerController>().waitTime = 1/waitTime;
         player.GetComponent<PlayerController>().rotate = true;
         player.GetComponent<PlayerController>().direction = directionToTurn;
         yield return new WaitForSeconds(waitTime);

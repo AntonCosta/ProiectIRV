@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Weapon weapon;
     Quaternion targetRotation;
 
-    [SerializeField] private float moveSpeed = 0.5f;
+    [SerializeField] private float moveSpeed = 0.1f; //might be too fast
 
     [SerializeField] GameObject proiectil;
 
@@ -17,6 +17,8 @@ public class PlayerController : MonoBehaviour
     public int direction = 0;
 
     private bool wait = false;
+
+    public float waitTime = 1;
 
     public bool rotate = false;
     //pt iluzia de rotatie trebuie apelat in update pentru a se misca incet cu atatea grade, trebuie sa il pacalesc cumva sa faca asta numa upa wait
@@ -40,16 +42,7 @@ public class PlayerController : MonoBehaviour
 
         bool buttonPressed = Input.GetButton("Fire1");
 
-        if(!wait)
-        {
-            Vector3 movement = baseMovement * moveSpeed;
-            transform.Translate(movement);
-        }
-
-        if (rotate)
-        {
-            TurnInDirection(direction);
-        }
+        
 
         if (weapon.Ammo <= 0)
         {
@@ -71,6 +64,20 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    private void FixedUpdate()
+    {
+        if (!wait)
+        {
+            Vector3 movement = baseMovement * moveSpeed;
+            transform.Translate(movement);
+        }
+
+        if (rotate)
+        {
+            TurnInDirection(direction);
+        }
+    }
+
     public void SetWaitTime(bool time)
     {
         wait = time;
@@ -80,7 +87,7 @@ public class PlayerController : MonoBehaviour
     {        
         Quaternion currentRotation = transform.rotation;
         Quaternion wantedRotation = currentRotation * Quaternion.AngleAxis(directionToTurn, Vector3.up);
-        transform.rotation = Quaternion.Slerp(currentRotation, wantedRotation, Time.deltaTime * 1f);
+        transform.rotation = Quaternion.Slerp(currentRotation, wantedRotation, Time.deltaTime * waitTime);
     }
 
 }
