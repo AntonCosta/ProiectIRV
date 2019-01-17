@@ -14,7 +14,7 @@ public class Weapon : ScriptableObject
     [SerializeField] private bool canFire = true;
     [SerializeField] private bool hasAmmo = true;
     [SerializeField] private bool reloading = false;
-    private PlayerController player;
+
     private Transform mainCamera;
 
     #region Properties
@@ -26,9 +26,7 @@ public class Weapon : ScriptableObject
 
     // Start is called before the first frame update
     public void OnEnable()
-    {
-        player = FindObjectOfType<PlayerController>();
-        mainCamera = player.cameraTransform;
+    {        
         ammo = maxAmmo;
         canFire = true;
         hasAmmo = true;
@@ -36,10 +34,15 @@ public class Weapon : ScriptableObject
         Debug.Log("Weapon Started");
     }
 
+    public void SetCamera()
+    {
+        mainCamera = GameObject.FindGameObjectWithTag("MainCamera").transform;
+    }
+
     public IEnumerator Fire()
     {
         GameObject newInstance = Instantiate(projectile.gameObject);
-        newInstance.transform.position = mainCamera.position + mainCamera.forward;
+        newInstance.transform.position = mainCamera.position + mainCamera.forward * 2;
         newInstance.transform.rotation = mainCamera.rotation;
         ammo--;
         canFire = false;

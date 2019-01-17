@@ -22,3 +22,4 @@ MonoBehaviour:
   canFire: 1
   hasAmmo: 1
   reloading: 0
+  mainCamera: {fileID: 0}
