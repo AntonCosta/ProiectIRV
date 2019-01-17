@@ -27,16 +27,13 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-
+        weapon.SetPlayerAndCamera();
     }
 
     // Update is called once per frame
     void Update()
     {
-        float x = Input.GetAxis("Vertical");
-        float z = Input.GetAxis("Horizontal");
-
-        bool buttonPressed = Input.GetButton("Fire1");
+        bool buttonPressed = Input.GetButton("Fire3");
 
         if (weapon.Ammo <= 0)
         {
