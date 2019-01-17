@@ -22,7 +22,4 @@ MonoBehaviour:
   canFire: 1
   hasAmmo: 1
   reloading: 0
-<<<<<<< Updated upstream
-=======
   mainCamera: {fileID: 0}
->>>>>>> Stashed changes

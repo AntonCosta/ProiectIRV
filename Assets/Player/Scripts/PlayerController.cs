@@ -27,7 +27,7 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-        weapon.SetPlayerAndCamera();
+        weapon.SetCamera();
     }
 
     // Update is called once per frame

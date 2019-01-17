@@ -34,7 +34,7 @@ public class Weapon : ScriptableObject
         Debug.Log("Weapon Started");
     }
 
-    public void SetPlayerAndCamera()
+    public void SetCamera()
     {
         mainCamera = GameObject.FindGameObjectWithTag("MainCamera").transform;
     }
