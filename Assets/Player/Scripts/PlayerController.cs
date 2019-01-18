@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
     public Transform cameraTransform;
     [SerializeField] private float health = 100f;
+    [SerializeField] private Image redFlash;
     [SerializeField] private Weapon weapon;
     [SerializeField] private float moveSpeed = 0.1f; //might be too fast
     private Quaternion targetRotation;
@@ -85,6 +87,7 @@ public class PlayerController : MonoBehaviour
     {
         Debug.Log("Player taking damage: " + amount);
         health -= amount;
+        StartCoroutine(FlashDamage());
         if (health <= 0)
         {
             GameOver();
@@ -94,5 +97,12 @@ public class PlayerController : MonoBehaviour
     public void GameOver()
     {
         Debug.Log("You are dead");
+    }
+
+    public IEnumerator FlashDamage()
+    {
+        redFlash.gameObject.SetActive(true);
+        yield return new WaitForSeconds(0.3f);
+        redFlash.gameObject.SetActive(false);
     }
 }
