@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class StopBehaviour : MonoBehaviour
 {
-
+    [SerializeField] private List<GameObject> EnemySpawns;
     [SerializeField] private float stopRadius = 10f;
     GameObject player = null;
 
@@ -15,7 +15,11 @@ public class StopBehaviour : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
+        if(player == null)
+        {
+            //player = GameManager.Instance.Player;
+            player = GameObject.FindGameObjectWithTag("Player");
+        }
     }
 
     // Update is called once per frame
@@ -35,7 +39,6 @@ public class StopBehaviour : MonoBehaviour
         // Draw attack sphere 
         Gizmos.color = new Color(255f, 0, 0, .5f);
         Gizmos.DrawWireSphere(transform.position, stopRadius);
-        
     }
 
 
