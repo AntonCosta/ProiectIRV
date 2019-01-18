@@ -524,9 +524,15 @@ namespace Gvr.Internal
         void UpdateEvents()
         {
             UnityGvrEvent unityGvrEvent = new UnityGvrEvent();
+            try { 
             while (GetGvrEvent(ref unityGvrEvent))
             {
                 events.Enqueue(unityGvrEvent);
+            }
+            }
+            catch (Exception e)
+            {
+
             }
         }
 
