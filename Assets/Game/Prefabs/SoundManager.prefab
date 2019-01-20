@@ -43,4 +43,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 652be06bdccce4143a7b3f68cbc1912a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPrefab: {fileID: 0}
+  Clip: {fileID: 0}
+  volume: 1
+  pitch: 1
+  Loop: 0
+  SpacialBlend: 1

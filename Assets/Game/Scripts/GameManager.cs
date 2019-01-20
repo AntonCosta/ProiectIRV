@@ -5,12 +5,11 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance = null;
-    private GameObject player;
     [SerializeField] public GameObject playerSpawnPoint;
     [SerializeField] GameObject playerPrefab;
 
     #region Properties
-    public GameObject Player { get => player; }
+    public GameObject Player { get => playerPrefab; }
     #endregion
 
     private void Awake()

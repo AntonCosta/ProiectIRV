@@ -10,8 +10,12 @@ public class PlayerController : MonoBehaviour
     public GameObject camera;
     public GameObject canvas;
     public TextMeshProUGUI healthText;
-    [SerializeField] private float health = 100f;
+    [SerializeField] public float health = 100f;
     [SerializeField] private Image redFlash;
+    [SerializeField] private Image greenFlash;
+    [SerializeField] private RawImage tunnelImage;
+
+
     [SerializeField] private GameObject healthDisplay;
     [SerializeField] private Weapon weapon;
     [SerializeField] private float moveSpeed = 0.1f; //might be too fast
@@ -70,6 +74,11 @@ public class PlayerController : MonoBehaviour
         {
             Vector3 movement = baseMovement * moveSpeed;
             transform.Translate(movement);
+            tunnelImage.gameObject.SetActive(true);
+        }
+        else
+        {
+            tunnelImage.gameObject.SetActive(false);
         }
 
         if (rotate)
@@ -94,7 +103,11 @@ public class PlayerController : MonoBehaviour
     {
         Debug.Log("Player taking damage: " + amount);
         health -= amount;
-        StartCoroutine(FlashDamage());
+        if(amount > 0)
+            StartCoroutine(FlashDamage());
+        else
+            StartCoroutine(FlashHeal());
+
         healthText.SetText(health.ToString() + "%");
         if (health <= 0)
         {
@@ -105,12 +118,22 @@ public class PlayerController : MonoBehaviour
     public void GameOver()
     {
         Debug.Log("You are dead");
+        redFlash.gameObject.SetActive(true);
+        gameObject.GetComponent<Rigidbody>().useGravity = true;
     }
 
     public IEnumerator FlashDamage()
     {
         redFlash.gameObject.SetActive(true);
         yield return new WaitForSeconds(0.3f);
-        redFlash.gameObject.SetActive(false);
+        if (health > 0)
+            redFlash.gameObject.SetActive(false);
+    }
+
+    public IEnumerator FlashHeal()
+    {
+        greenFlash.gameObject.SetActive(true);
+        yield return new WaitForSeconds(0.3f);
+        greenFlash.gameObject.SetActive(false);
     }
 }

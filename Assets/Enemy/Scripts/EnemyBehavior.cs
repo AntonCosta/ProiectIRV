@@ -56,7 +56,8 @@ public class EnemyBehavior : MonoBehaviour
 
     public void Attack()
     {
-        StartCoroutine("AttackAfterDelay");
+        if(playerInstance.health > 0)
+            StartCoroutine("AttackAfterDelay");
     }
 
     public IEnumerator AttackAfterDelay()
@@ -66,12 +67,14 @@ public class EnemyBehavior : MonoBehaviour
         Debug.Log(currentAttackRate);
         yield return new WaitForSeconds(currentAttackRate);
         animator.SetTrigger("Attack");
-        playerInstance.ApplyDamage(damage);
+        if (playerInstance.health > 0)
+            playerInstance.ApplyDamage(damage);
         attacking = false;
     }
 
     public void Die()
     {
+        playerInstance.ApplyDamage(-damage);
         Destroy(gameObject);
     }
 }
