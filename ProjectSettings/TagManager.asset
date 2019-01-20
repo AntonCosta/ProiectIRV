@@ -6,8 +6,6 @@ TagManager:
   tags:
   - Player Projectile
   - Enemy
-  - UI
-  - UI Health
   layers:
   - Default
   - TransparentFX
