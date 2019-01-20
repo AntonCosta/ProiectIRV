@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class StopBehaviour : MonoBehaviour
 {
-    [SerializeField] private List<GameObject> EnemySpawns;
+    [SerializeField] public List<GameObject> EnemySpawns;
     [SerializeField] private float stopRadius = 10f;
     GameObject player = null;
+    private bool spawnsEnabled = false;
 
     [SerializeField] private int directionToTurn;
     [SerializeField] private float waitTime;
@@ -29,8 +30,34 @@ public class StopBehaviour : MonoBehaviour
 
         if(distanceToPlayer < stopRadius)
         {
-            stopRadius = 0;
-            StartCoroutine(waitInSpot());
+            Debug.Log(EnemySpawns.Count + "Enemy Spawns");
+            if (EnemySpawns.Count != 0)
+            {
+                if(!spawnsEnabled)
+                {
+                    player.GetComponent<PlayerController>().SetWaitTime(true);
+                    foreach (GameObject spawn in EnemySpawns)
+                    {
+                        spawn.SetActive(true);
+                    }
+                    spawnsEnabled = true;
+                }
+                else
+                {
+                    foreach(GameObject spawn in EnemySpawns)
+                    {
+                        if(!spawn.activeSelf)
+                        {
+                            EnemySpawns.Remove(spawn);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                stopRadius = 0;
+                StartCoroutine(waitInSpot());
+            }
         }
     }
 
@@ -46,7 +73,7 @@ public class StopBehaviour : MonoBehaviour
     {
         player.GetComponent<PlayerController>().SetWaitTime(true);
         //player.GetComponent<PlayerController>().TurnInDirection(directionToTurn);
-        yield return new WaitForSeconds(waitTime);
+        //yield return new WaitForSeconds(waitTime);
         player.GetComponent<PlayerController>().waitTime = 1/waitTime;
         player.GetComponent<PlayerController>().rotate = true;
         player.GetComponent<PlayerController>().direction = directionToTurn;
