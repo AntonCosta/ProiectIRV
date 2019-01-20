@@ -7,6 +7,7 @@ using UnityEngine;
 public class Loader : MonoBehaviour
 {
     public GameObject gameManager;
+    public GameObject soundManager;
     public GameObject playerSpawnPoint;
     public static Loader Instance = null;
 
@@ -33,6 +34,11 @@ public class Loader : MonoBehaviour
         {
             Instantiate(gameManager);
             GameManager.Instance.playerSpawnPoint = playerSpawnPoint;
+        }
+
+        if(SoundManager.Instance == null)
+        {
+            Instantiate(soundManager);
         }
     }
 
