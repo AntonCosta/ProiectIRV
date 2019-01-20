@@ -14,11 +14,13 @@ public class EnemyBehavior : MonoBehaviour
 
     private void Awake()
     {
-        playerInstance = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
+
     }
     // Start is called before the first frame update
     void Start()
     {
+        playerInstance = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
+
         health = stats.MaxHealth;
         damage = stats.Damage;
         attacking = false;

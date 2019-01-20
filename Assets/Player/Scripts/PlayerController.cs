@@ -2,12 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class PlayerController : MonoBehaviour
 {
     public Transform cameraTransform;
+    public GameObject camera;
+    public GameObject canvas;
+    public TextMeshProUGUI healthText;
     [SerializeField] private float health = 100f;
     [SerializeField] private Image redFlash;
+    [SerializeField] private GameObject healthDisplay;
     [SerializeField] private Weapon weapon;
     [SerializeField] private float moveSpeed = 0.1f; //might be too fast
     private Quaternion targetRotation;
@@ -23,11 +28,14 @@ public class PlayerController : MonoBehaviour
     // Use this for initialization
     void Awake()
     {
-        cameraTransform = GameObject.FindWithTag("MainCamera").transform;
+        camera = GameObject.FindWithTag("MainCamera");
+        cameraTransform = camera.transform;
     }
 
     private void Start()
     {
+        healthText = healthDisplay.GetComponent<TextMeshProUGUI>();
+        healthText.SetText(health.ToString() + "%");
         weapon.SetCamera();
     }
 
@@ -87,6 +95,7 @@ public class PlayerController : MonoBehaviour
         Debug.Log("Player taking damage: " + amount);
         health -= amount;
         StartCoroutine(FlashDamage());
+        healthText.SetText(health.ToString() + "%");
         if (health <= 0)
         {
             GameOver();
