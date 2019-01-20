@@ -12,6 +12,8 @@ public class EnemyBehavior : MonoBehaviour
     [SerializeField] private float attackRateMax = 5f;
     [SerializeField] private bool attacking = false;
 
+    Animator animator;
+
     private void Awake()
     {
 
@@ -24,6 +26,7 @@ public class EnemyBehavior : MonoBehaviour
         health = stats.MaxHealth;
         damage = stats.Damage;
         attacking = false;
+        animator = GetComponentInChildren<Animator>();
     }
 
     // Update is called once per frame
@@ -33,6 +36,10 @@ public class EnemyBehavior : MonoBehaviour
         {
             Attack();
         }
+
+        Vector3 direction = (playerInstance.gameObject.transform.position - transform.position).normalized;
+        Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
     }
 
     public void ApplyDamage(float projectileDamage)
@@ -58,6 +65,7 @@ public class EnemyBehavior : MonoBehaviour
         float currentAttackRate = Random.Range(attackRateMin, attackRateMax);
         Debug.Log(currentAttackRate);
         yield return new WaitForSeconds(currentAttackRate);
+        animator.SetTrigger("Attack");
         playerInstance.ApplyDamage(damage);
         attacking = false;
     }
