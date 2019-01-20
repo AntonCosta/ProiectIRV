@@ -14,7 +14,9 @@ public class Weapon : ScriptableObject
     [SerializeField] private bool canFire = true;
     [SerializeField] private bool hasAmmo = true;
     [SerializeField] private bool reloading = false;
-
+    [SerializeField] private AudioClip shootClip;
+    [SerializeField] private AudioClip reloadClip;
+    private bool isShootClip = true;
     private Transform mainCamera;
 
     #region Properties
@@ -31,12 +33,14 @@ public class Weapon : ScriptableObject
         canFire = true;
         hasAmmo = true;
         reloading = false;
+        
         Debug.Log("Weapon Started");
     }
 
     public void SetCamera()
     {
         mainCamera = GameObject.FindGameObjectWithTag("MainCamera").transform;
+        SoundManager.Instance.Clip = shootClip;
     }
 
     public IEnumerator Fire()
@@ -45,6 +49,7 @@ public class Weapon : ScriptableObject
         newInstance.transform.position = mainCamera.position + mainCamera.forward * 2;
         newInstance.transform.rotation = mainCamera.rotation;
         ammo--;
+        SoundManager.Instance.Play();
         canFire = false;
         yield return new WaitForSeconds(fireRate);
         canFire = true;
@@ -53,8 +58,11 @@ public class Weapon : ScriptableObject
     public IEnumerator Reload()
     {
         reloading = true;
+        SoundManager.Instance.Clip = reloadClip;
+        SoundManager.Instance.Play();
         yield return new WaitForSeconds(reloadTime);
         reloading = false;
+        SoundManager.Instance.Clip = shootClip;
         ammo = maxAmmo;
         hasAmmo = true;
     }
