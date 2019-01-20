@@ -16,16 +16,17 @@ public class EnemyBehavior : MonoBehaviour
 
     private void Awake()
     {
-        
+
     }
     // Start is called before the first frame update
     void Start()
     {
+        playerInstance = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
+
         health = stats.MaxHealth;
         damage = stats.Damage;
         attacking = false;
         animator = GetComponentInChildren<Animator>();
-        playerInstance = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
     }
 
     // Update is called once per frame
