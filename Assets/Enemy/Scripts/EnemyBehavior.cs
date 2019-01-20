@@ -8,9 +8,10 @@ public class EnemyBehavior : MonoBehaviour
     [SerializeField] private float health;
     [SerializeField] private float damage = 10;
     [SerializeField] private PlayerController playerInstance;
-    [SerializeField] private float attackRateMin = 3f; //Attack rate is actually between this value and its double
+    [SerializeField] private float attackRateMin = 3f;
     [SerializeField] private float attackRateMax = 5f;
     [SerializeField] private bool attacking = false;
+    private bool dead = false;
 
     Animator animator;
 
@@ -22,7 +23,6 @@ public class EnemyBehavior : MonoBehaviour
     void Start()
     {
         playerInstance = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
-
         health = stats.MaxHealth;
         damage = stats.Damage;
         attacking = false;
