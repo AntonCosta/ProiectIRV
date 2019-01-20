@@ -19,7 +19,6 @@ public class PlayerController : MonoBehaviour
     public float waitTime = 1;
 
     public bool rotate = false;
-    //pt iluzia de rotatie trebuie apelat in update pentru a se misca incet cu atatea grade, trebuie sa il pacalesc cumva sa faca asta numa upa wait
 
     // Use this for initialization
     void Awake()
